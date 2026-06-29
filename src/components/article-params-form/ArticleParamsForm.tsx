@@ -18,6 +18,8 @@ import {
   type OptionType,
 } from 'src/constants/articleProps';
 import styles from './ArticleParamsForm.module.scss';
+import { RadioGroup } from 'src/ui/radio-group';
+import { Separator } from 'src/ui/separator';
 
 type ArticleParamsFormProps = {
   initialArticleState: ArticleStateType;
@@ -105,95 +107,84 @@ useEffect(() => {
     setIsOpen(false);
   };
   return (
-  <div ref={rootRef}>
-    <ArrowButton
-      isOpen={isOpen}
-      onClick={handleArrowClick}
-    />
-
-    <aside className={asideClassName}>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.field}>
-            <span className={styles.label}>Шрифт</span>
-            <Select
-              title="Шрифт"
-              options={fontFamilyOptions}
-              selected={draftState.fontFamilyOption}
-              onChange={(selected: OptionType) =>
-                handleSelectChange('fontFamilyOption', selected)
-              }
-            />
-          </div>
-
-
+    <div ref={rootRef}>
+      <ArrowButton
+        isOpen={isOpen}
+        onClick={handleArrowClick}
+      />
+      <aside className={asideClassName}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <h2 className={styles.titleDescription}>Задайте параметры</h2>
           <div className={styles.field}>
-            <span className={styles.label}>Цвет текста</span>
+            <span className={styles.label}></span>
             <Select
-              title="Цвет текста"
-              options={fontColors}
-              selected={draftState.fontColor}
-              onChange={(selected: OptionType) =>
-                handleSelectChange('fontColor', selected)
-              }
+            title="Шрифт"
+            options={fontFamilyOptions}
+            selected={draftState.fontFamilyOption}
+            onChange={(selected: OptionType) =>
+            handleSelectChange('fontFamilyOption', selected)
+            }
             />
-          </div>
-
-
+            </div>
           <div className={styles.field}>
-            <span className={styles.label}>Цвет фона</span>
-            <Select
-              title="Цвет фона"
-              options={backgroundColors}
-              selected={draftState.backgroundColor}
-              onChange={(selected: OptionType) =>
-                handleSelectChange('backgroundColor', selected)
-              }
-            />
-          </div>
-
-
-          <div className={styles.field}>
-            <span className={styles.label}>Ширина статьи</span>
-            <Select
-              title="Ширина статьи"
-              options={contentWidthArr}
-              selected={draftState.contentWidth}
-              onChange={(selected: OptionType) =>
-                handleSelectChange('contentWidth', selected)
-              }
-            />
-          </div>
-
-
-          <div className={styles.field}>
-            <span className={styles.label}>Размер шрифта</span>
-            <Select
-              title="Размер шрифта"
-              options={fontSizeOptions}
+            <RadioGroup
               selected={draftState.fontSizeOption}
+              name="font-size"
               onChange={(selected: OptionType) =>
                 handleSelectChange('fontSizeOption', selected)
               }
+              options={fontSizeOptions}
+              title="Размер шрифта"
             />
           </div>
-
-        <div className={styles.bottomContainer}>
-          <Button
-            title="Сбросить"
-            htmlType="button"
-            type="clear"
-            onClick={handleResetClick}
-          />
-          <Button
-            title="Применить"
-            htmlType="submit"
-            type="apply"
-          />
-        </div>
-      </form>
-    </aside>
-  </div>
-);
-};
+            <div className={styles.field}>
+              <Select
+                title="Цвет шрифта"
+                options={fontColors}
+                selected={draftState.fontColor}
+                onChange={(selected: OptionType) =>
+                  handleSelectChange('fontColor', selected)
+                }
+              />
+            </div>
+            <Separator/>
+            <div className={styles.field}>
+              <Select
+                title="Цвет фона"
+                options={backgroundColors}
+                selected={draftState.backgroundColor}
+                onChange={(selected: OptionType) =>
+                  handleSelectChange('backgroundColor', selected)
+                }
+              />
+            </div>
+            <div className={styles.field}>
+              <Select
+                title="Ширина контента"
+                options={contentWidthArr}
+                selected={draftState.contentWidth}
+                onChange={(selected: OptionType) =>
+                  handleSelectChange('contentWidth', selected)
+                }
+              />
+            </div>
+          <div className={styles.bottomContainer}>
+            <Button
+              title="Сбросить"
+              htmlType="button"
+              type="clear"
+              onClick={handleResetClick}
+            />
+            <Button
+              title="Применить"
+              htmlType="submit"
+              type="apply"
+            />
+          </div>
+        </form>
+      </aside>
+    </div>
+  );
+  };
 
 
